@@ -26,6 +26,25 @@ void Map::drawRec() const
 	);
 }
 
+void Map::drawSep(Rectangle src, Rectangle dst) const
+{
+	Rectangle n = dst;
+
+	n.x *= _WIN_SCALE_;
+	n.y *= _WIN_SCALE_;
+	n.width *= _WIN_SCALE_;
+	n.height *= _WIN_SCALE_;
+
+	DrawTexturePro(
+		mainSprite, 
+		src, 
+		n, 
+		origin, 
+		rotation, 
+		color
+	);
+}
+
 int Map::loadSprite(const std::string& path)
 {
 	mainSprite = LoadTexture(path.c_str());

@@ -49,12 +49,10 @@ void Player::drawCustom(void (*f)(void *), void *args) const
 	f(args);
 }
 
-
 void movePlayer(void *args)
 {	
 	int stage = 0;
 	Player *player = (Player *) args;
-
 	static clock_t now;
 	double delay = 0.04 * CLOCKS_PER_SEC;
 
@@ -141,11 +139,20 @@ void movePlayer(void *args)
 	// }
 }
 
+Rectangle scaleToCurrent(Rectangle solid)
+{
+	solid.x *= _WIN_SCALE_;
+	solid.y *= _WIN_SCALE_;
+	solid.height *= _WIN_SCALE_;
+	solid.width *= _WIN_SCALE_;
+	return (solid);
+}
+
 bool checkColl(Rectangle player, std::vector<Rectangle> solids)
 {
 	for (int i = 0; i < solids.size(); i++)
 	{
-		if (CheckCollisionRecs(player, solids[i]))
+		if (CheckCollisionRecs(player, scaleToCurrent(solids[i])))
 			return (false);
 	}
 	return (true);

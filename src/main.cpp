@@ -10,6 +10,7 @@
 #include "Map.hpp"
 
 #include "Utils.hpp"
+#include "Render.hpp"
 #include "Loader.hpp"
 #include "Input.hpp"
 
@@ -36,20 +37,6 @@ void test3(void *args)
 	*isRunning = false;
 }
 
-void playerCustomDraw(void *args)
-{
-	Player *player = (Player *)args;
-
-	DrawEllipse(
-		player->hitBox.x + (player->hitBox.width / 2),
-		player->hitBox.y + (player->hitBox.height - (player->hitBox.height / 12)),
-		(player->hitBox.width / 2) - (player->hitBox.width / 15),
-		player->hitBox.height / 4,
-		(Color){ 0, 0, 0, 125 }	
-	);
-	player->drawRec();
-}
-
 void playerDash(void *args)
 {
 	Test *t = (Test *)args;
@@ -60,12 +47,12 @@ void playerDash(void *args)
 
 	if (!i)
 		i = 1;
-	else if (i <= 100)
+	else if (i <= 1000)
 	{
 		player->color = (Color){ 0, 0, 0, 125 };
 
 			oldPos = player->position.y;
-			player->position.y += 1000.0f * GetFrameTime();
+			player->position.y += 300.0f * GetFrameTime();
 			player->dest.y = player->position.y;
 			player->hitBox.y = player->position.y + ((_WIN_SCALE_ - 2) * 8);
 			if (!checkColl(player->hitBox, map->solids))
@@ -73,7 +60,7 @@ void playerDash(void *args)
 				player->position.y = oldPos;
 				player->dest.y = oldPos;
 				player->hitBox.y = oldPos + ((_WIN_SCALE_ - 2) * 8);
-				i = 1000;
+				// i = 1000;
 			}
 	}
 	else
@@ -164,9 +151,8 @@ int main(void)
 					BeginDrawing();
 						ClearBackground(BLACK);
 						//DrawRectanglePro(player.dest, Vector2{0, 0}, 0.0f, BLUE);
-						map.drawRec();
-						player.drawCustom(playerCustomDraw, &player);
 
+						Render::RenderMapWithPlayer(map, player);
 						if (player.hit)
 						{
 							DrawRectangle(

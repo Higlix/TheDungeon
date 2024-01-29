@@ -49,117 +49,47 @@ void Loader::MapTiles(Map *map)
 	float h = _WIN_SCALE_ * _MIN_HEIGHT_;
 	float w = _WIN_SCALE_ * _MIN_WIDTH_;
 
-
 	map->loadSprite("res/TestMap1.png");
 	map->dest.x = 0;
 	map->dest.y = 0;
 	map->dest.width = w;
 	map->dest.height = h;
 
-	/* TOP WALL */
-	map->solids.push_back(Rectangle{
-		0 * _WIN_SCALE_,
-		0 * _WIN_SCALE_,
-		256 * _WIN_SCALE_,
-		15 * _WIN_SCALE_
+	// LEFT WALL
+	map->borders.push_back(Rectangle{
+		0, 0,
+		5, 180
+	});
+	
+	// RIGHT WALL
+	map->borders.push_back(Rectangle{
+		315, 0,
+		5, 180
 	});
 
-	/* LEFT WALL */
-	map->solids.push_back(Rectangle{
-		0 * _WIN_SCALE_,
-		0 * _WIN_SCALE_,
-		4 * _WIN_SCALE_,
-		180 * _WIN_SCALE_
-	});
-	/* BUTTOM WALL */
-	map->solids.push_back(Rectangle{
-		0 * _WIN_SCALE_,
-		175 * _WIN_SCALE_,
-		318 * _WIN_SCALE_,
-		11 * _WIN_SCALE_
+	// TOP WALL
+	map->borders.push_back(Rectangle{
+		0, 0,
+		320, 16
 	});
 
-	/* RIGHT WALL */
-	map->solids.push_back(Rectangle{
-		315 * _WIN_SCALE_,
-		15 * _WIN_SCALE_,
-		4 * _WIN_SCALE_,
-		164 * _WIN_SCALE_
+	// BOTTOM WALL
+	map->borders.push_back(Rectangle{
+		0, 173,
+		320, 7
 	});
 
-	/* DOOR */
-	map->solids.push_back(Rectangle{
-		252 * _WIN_SCALE_,
-		15 * _WIN_SCALE_,
-		66 * _WIN_SCALE_,
-		15 * _WIN_SCALE_
+	map->solids = map->borders;
+
+	map->borders.push_back(Rectangle{
+		0, 168,
+		320, 5
 	});
 
-	/* CLOSE LEFT WALL */
-	map->solids.push_back(Rectangle{
-		252 * _WIN_SCALE_,
-		0 * _WIN_SCALE_,
-		5 * _WIN_SCALE_,
-		26 * _WIN_SCALE_
+	map->borders.push_back(Rectangle{
+		5, 11,
+		310, 157
 	});
-
-	/* SMALL ROOM TOP WALL */
-	map->solids.push_back(Rectangle{
-		190 * _WIN_SCALE_,
-		82 * _WIN_SCALE_,
-		87 * _WIN_SCALE_,
-		5 * _WIN_SCALE_
-	});	
-
-	map->solids.push_back(Rectangle{
-		190 * _WIN_SCALE_,
-		138 * _WIN_SCALE_,
-		87 * _WIN_SCALE_,
-		5 * _WIN_SCALE_
-	});
-
-	map->solids.push_back(Rectangle{
-		176 * _WIN_SCALE_,
-		97 * _WIN_SCALE_,
-		13 * _WIN_SCALE_,
-		4 * _WIN_SCALE_
-	});
-
-	map->solids.push_back(Rectangle{
-		177 * _WIN_SCALE_,
-		122 * _WIN_SCALE_,
-		12 * _WIN_SCALE_,
-		4 * _WIN_SCALE_
-	});
-
-	map->solids.push_back(Rectangle{
-		277 * _WIN_SCALE_,
-		74 * _WIN_SCALE_,
-		5 * _WIN_SCALE_,
-		66 * _WIN_SCALE_
-	});
-
-	map->solids.push_back(Rectangle{
-		229 * _WIN_SCALE_,
-		83 * _WIN_SCALE_,
-		48 * _WIN_SCALE_,
-		8 * _WIN_SCALE_
-	});
-
-	map->solids.push_back(Rectangle{
-		185 * _WIN_SCALE_,
-		74 * _WIN_SCALE_,
-		5 * _WIN_SCALE_,
-		26 * _WIN_SCALE_
-	});
-
-	map->solids.push_back(Rectangle{
-		185 * _WIN_SCALE_,
-		122 * _WIN_SCALE_,
-		5 * _WIN_SCALE_,
-		20 * _WIN_SCALE_
-	});
-
 }
 
 void Loader::MenuButtons(UI *ui[])
